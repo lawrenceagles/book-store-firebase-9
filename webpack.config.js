@@ -1,6 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+// import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 // gets abosolute path of the folder.
 const __filename = fileURLToPath(import.meta.url);
@@ -14,5 +14,5 @@ export default {
 		filename: 'bundle.js'
 	},
 	watch: true,
-	plugins: [new HtmlWebpackPlugin()]
+	// plugins: [new HtmlWebpackPlugin()]
 };
