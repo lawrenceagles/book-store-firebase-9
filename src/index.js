@@ -22,10 +22,20 @@ const db = getFirestore(app);
 // Ref collection
 const colRef = collection(db, 'books');
 
-console.log("collection is:", colRef)
 
 // Get collection data
-getDocs(colRef).then((snapshot) => {
-	console.log("books is", snapshot.docs);
-}).catch(e => console.log("error is", e.message));
+const getBooks = async (ref) => {
+	const querySnapshot = await getDocs(ref);
+	const books = [];
+	querySnapshot.forEach((doc) => {
+		books.push({
+			id: doc.id,
+			...doc.data(),
+		})
 
+	});
+	console.log("books", books)
+	return books;
+}
+
+getBooks(colRef)
