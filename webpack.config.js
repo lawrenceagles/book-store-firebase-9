@@ -13,5 +13,26 @@ export default {
 		path: path.resolve(__dirname + '/dist'),
 		filename: 'bundle.js'
 	},
-	watch: true,
+	module: {
+		rules: [
+			{
+				test: /\.js$/i,
+				exclude: /(node_modules)/,
+				include: path.resolve(__dirname, 'src'),
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env'],
+					},
+				},
+			},
+			{
+				test: /\.css$/i,
+				exclude: /(node_modules)/,
+				include: path.resolve(__dirname, 'src'),
+				use: ['style-loader', 'css-loader', 'postcss-loader'],
+			},
+		],
+	},
+	watch: true
 };
