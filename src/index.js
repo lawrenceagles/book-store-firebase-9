@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore"
+import { getFirestore, collection, getDocs, onSnapshot } from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,18 +24,39 @@ const colRef = collection(db, 'books');
 
 
 // Get collection data
-const getBooks = async (ref) => {
-	const querySnapshot = await getDocs(ref);
-	const books = [];
-	querySnapshot.forEach((doc) => {
-		books.push({
-			id: doc.id,
-			...doc.data(),
-		})
+// const getBooks = async (ref) => {
+// 	const querySnapshot = await getDocs(ref);
+// 	const books = [];
+// 	querySnapshot.forEach((doc) => {
+// 		books.push({
+// 			id: doc.id,
+// 			...doc.data(),
+// 		})
 
-	});
-	console.log("books", books)
-	return books;
+// 	});
+// 	console.log("books", books)
+// 	return books;
+// }
+
+// getBooks(colRef)
+
+// getRealtime data
+const getDataAsync = async () => {
+
+	onSnapshot(colRef, (snapshot) => {
+		const books = [];
+		snapshot.forEach((doc) => {
+			books.push({
+				id: doc.id,
+				...doc.data(),
+			})
+
+		});
+
+		console.log("books", books)
+		return books;
+
+	})
 }
 
-getBooks(colRef)
+getDataAsync();
