@@ -5,6 +5,9 @@ import "./main.css";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, onSnapshot } from "firebase/firestore"
 
+// Regenerator runtime package
+import "regenerator-runtime/runtime.js";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: "AIzaSyADoSokOiVocQf7WsgxYe6Nt07pOhnYvgE",

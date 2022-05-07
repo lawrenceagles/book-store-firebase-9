@@ -6,9 +6,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default {
-	devtool: "eval-cheap-source-map",
+	devtool: 'eval-cheap-source-map',
 	mode: 'development',
-	entry: './src/index.js',
+	entry: ['regenerator-runtime/runtime.js', './src/index.js'],
 	output: {
 		path: path.resolve(__dirname + '/dist'),
 		filename: 'bundle.js'
