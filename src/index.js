@@ -3,7 +3,7 @@ import "./main.css";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore"
+import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore"
 
 // Regenerator runtime package
 import "regenerator-runtime/runtime.js";
@@ -32,23 +32,6 @@ const db = getFirestore(app);
 // Ref collection
 const colRef = collection(db, 'books');
 
-// Get collection data
-// const getBooks = async (ref) => {
-// 	const querySnapshot = await getDocs(ref);
-// 	const books = [];
-// 	querySnapshot.forEach((doc) => {
-// 		books.push({
-// 			id: doc.id,
-// 			...doc.data(),
-// 		})
-
-// 	});
-// 	console.log("books", books)
-// 	return books;
-// }
-
-// getBooks(colRef)
-
 // getRealtime data
 onSnapshot(colRef, (snapshot) => {
 	const books = [];
@@ -66,7 +49,6 @@ onSnapshot(colRef, (snapshot) => {
 
 // Get DOM Elements
 const Form = document.querySelector('#add-book');
-const AddBookBtn = document.querySelector('#create-book');
 
 // Handle submit 
 Form.addEventListener('submit', async function handleSubmit(e) {
@@ -79,14 +61,16 @@ Form.addEventListener('submit', async function handleSubmit(e) {
 	// simple validation
 	if (!title || !author) return; // makes sure user enters a title
 
-	AddBookBtn.innerHTML = 'Loading...';
-
 	try {
 		// create book
-		console.log("submitted", title, author)
+		await addDoc(colRef, { title, author });
+
+		console.log("book added successfully!");
+
+		Form.reset();
+
 	} catch (error) {
 		// handle error
-		AddBookBtn.innerHTML = 'Add Book';
 		console.log('Error occured', error.message);
 	}
 });
@@ -103,7 +87,7 @@ document.addEventListener(
 
 			if (confirm(`do you want to delete this book?`)) {
 
-				deleteDoc(docRef).then(() => console.log("book has been deleted!"))
+				deleteDoc(docRef).then(() => console.log("book deleted successfully!"))
 			}
 		}
 
