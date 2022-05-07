@@ -1,10 +1,7 @@
 import createElem from "./createElem.js";
 
-// Get DOM elements
-const Form = document.querySelector('#add-book-form');
+// Get DOM element
 const BooksContainer = document.querySelector('#books-container');
-
-
 
 // display books
 function renderBooks(books) {
@@ -20,7 +17,7 @@ function renderBooks(books) {
 				'span',
 				{
 					'data-id': book.id,
-					class: ''
+					class: 'book'
 				},
 				`${book.title} - ${book.author}`
 			)
