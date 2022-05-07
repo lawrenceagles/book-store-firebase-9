@@ -8,6 +8,9 @@ import { getFirestore, collection, getDocs, onSnapshot } from "firebase/firestor
 // Regenerator runtime package
 import "regenerator-runtime/runtime.js";
 
+// import UI rendering logic
+import { renderBooks } from "./utils/index.js";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: "AIzaSyADoSokOiVocQf7WsgxYe6Nt07pOhnYvgE",
@@ -29,40 +32,32 @@ const db = getFirestore(app);
 const colRef = collection(db, 'books');
 
 // Get collection data
-const getBooks = async (ref) => {
-	const querySnapshot = await getDocs(ref);
-	console.log("a snapshot")
+// const getBooks = async (ref) => {
+// 	const querySnapshot = await getDocs(ref);
+// 	const books = [];
+// 	querySnapshot.forEach((doc) => {
+// 		books.push({
+// 			id: doc.id,
+// 			...doc.data(),
+// 		})
+
+// 	});
+// 	console.log("books", books)
+// 	return books;
+// }
+
+// getBooks(colRef)
+
+// getRealtime data
+onSnapshot(colRef, (snapshot) => {
 	const books = [];
-	querySnapshot.forEach((doc) => {
+	snapshot.forEach((doc) => {
 		books.push({
 			id: doc.id,
 			...doc.data(),
 		})
 
 	});
-	console.log("books", books)
-	return books;
-}
 
-getBooks(colRef)
-
-// getRealtime data
-// const getDataAsync = async () => {
-// 	console.log("I am working")
-// 	onSnapshot(colRef, (snapshot) => {
-// 		const books = [];
-// 		snapshot.forEach((doc) => {
-// 			books.push({
-// 				id: doc.id,
-// 				...doc.data(),
-// 			})
-
-// 		});
-
-// 		console.log("books", books)
-// 		return books;
-
-// 	})
-// }
-
-// getDataAsync();
+	renderBooks(books)
+})

@@ -1,3 +1,4 @@
-import createElem from "./createElem";
+import createElem from "./createElem.js";
+import renderBooks from "./renderBooks.js";
 
-export { createElem };
+export { createElem, renderBooks };
