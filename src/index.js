@@ -25,41 +25,41 @@ const db = getFirestore(app);
 // Ref collection
 const colRef = collection(db, 'books');
 
-
 // Get collection data
-// const getBooks = async (ref) => {
-// 	const querySnapshot = await getDocs(ref);
-// 	const books = [];
-// 	querySnapshot.forEach((doc) => {
-// 		books.push({
-// 			id: doc.id,
-// 			...doc.data(),
-// 		})
+const getBooks = async (ref) => {
+	const querySnapshot = await getDocs(ref);
+	console.log("a snapshot")
+	const books = [];
+	querySnapshot.forEach((doc) => {
+		books.push({
+			id: doc.id,
+			...doc.data(),
+		})
 
-// 	});
-// 	console.log("books", books)
-// 	return books;
-// }
-
-// getBooks(colRef)
-
-// getRealtime data
-const getDataAsync = async () => {
-
-	onSnapshot(colRef, (snapshot) => {
-		const books = [];
-		snapshot.forEach((doc) => {
-			books.push({
-				id: doc.id,
-				...doc.data(),
-			})
-
-		});
-
-		console.log("books", books)
-		return books;
-
-	})
+	});
+	console.log("books", books)
+	return books;
 }
 
-getDataAsync();
+getBooks(colRef)
+
+// getRealtime data
+// const getDataAsync = async () => {
+// 	console.log("I am working")
+// 	onSnapshot(colRef, (snapshot) => {
+// 		const books = [];
+// 		snapshot.forEach((doc) => {
+// 			books.push({
+// 				id: doc.id,
+// 				...doc.data(),
+// 			})
+
+// 		});
+
+// 		console.log("books", books)
+// 		return books;
+
+// 	})
+// }
+
+// getDataAsync();
