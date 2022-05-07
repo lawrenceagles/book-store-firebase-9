@@ -43,38 +43,9 @@ onSnapshot(colRef, (snapshot) => {
 
 	});
 
+	console.log("books", books)
 	renderBooks(books)
 })
-
-
-// Get DOM Elements
-const Form = document.querySelector('#add-book');
-
-// Handle submit 
-Form.addEventListener('submit', async function handleSubmit(e) {
-	// prevents form reload
-	e.preventDefault();
-	// get input fields
-	const title = Form.elements['title'].value;
-	const author = Form.elements['author'].value;
-
-	// simple validation
-	if (!title || !author) return; // makes sure user enters a title
-
-	try {
-		// create book
-		await addDoc(colRef, { title, author });
-
-		console.log("book added successfully!");
-
-		Form.reset();
-
-	} catch (error) {
-		// handle error
-		console.log('Error occured', error.message);
-	}
-});
-
 
 // event handlers
 document.addEventListener(
@@ -97,15 +68,60 @@ document.addEventListener(
 );
 
 
-// // Add a new document with a generated id.
-// const docRef = await addDoc(collection(db, "cities"), {
-// 	name: "Tokyo",
-// 	country: "Japan"
-// });
+// Get DOM Elements
+const addForm = document.querySelector('#add-book');
+const updateForm = document.querySelector('#update-book');
 
-// const washingtonRef = doc(db, "cities", "DC");
+// Handle submit 
+addForm.addEventListener('submit', async function handleSubmit(e) {
+	// prevents form reload
+	e.preventDefault();
+	// get input fields
+	const title = addForm.elements['title'].value;
+	const author = addForm.elements['author'].value;
 
-// // Set the "capital" field of the city 'DC'
-// await updateDoc(washingtonRef, {
-// 	capital: true
-// });
+	// simple validation
+	if (!title || !author) return; // makes sure user enters a title
+
+	try {
+		// create book
+		await addDoc(colRef, { title, author });
+
+		console.log("book added successfully!");
+
+		addForm.reset();
+
+	} catch (error) {
+		// handle error
+		console.log('Error occured', error.message);
+	}
+});
+
+// Handle update 
+updateForm.addEventListener('submit', async function handleSubmit(e) {
+	// prevents form reload
+	e.preventDefault();
+	// get input fields
+	const ID = updateForm.elements['id'].value;
+	const title = updateForm.elements['title'].value;
+	const author = updateForm.elements['author'].value;
+
+	// simple validation
+	if (!ID) return; // makes sure user enters a title
+
+	try {
+		// get document reference
+		const docRef = doc(db, 'books', ID)
+
+		// create book
+		await updateDoc(docRef, { title, author });
+
+		console.log("book updated successfully!");
+
+		updateForm.reset();
+
+	} catch (error) {
+		// handle error
+		console.log('Error occured', error.message);
+	}
+});

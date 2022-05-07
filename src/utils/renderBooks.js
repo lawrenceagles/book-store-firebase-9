@@ -12,7 +12,7 @@ function renderBooks(books) {
 		// add list items
 		const bookItem = createElem(
 			'li',
-			{ class: 'cursor-pointer' },
+			{ class: 'cursor-pointer my-4' },
 			createElem(
 				'span',
 				{
