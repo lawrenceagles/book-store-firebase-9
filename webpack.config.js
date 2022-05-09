@@ -1,5 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 // gets abosolute path of the folder.
 const __filename = fileURLToPath(import.meta.url);
@@ -30,9 +31,10 @@ export default {
 				test: /\.css$/i,
 				exclude: /(node_modules)/,
 				include: path.resolve(__dirname, 'src'),
-				use: ['style-loader', 'css-loader', 'postcss-loader'],
+				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
 			},
 		],
 	},
+	plugins: [new MiniCssExtractPlugin()],
 	watch: true
 };
