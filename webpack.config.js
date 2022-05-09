@@ -11,7 +11,7 @@ export default {
 	mode: 'development',
 	entry: ['regenerator-runtime/runtime.js', './src/index.js'],
 	output: {
-		path: path.resolve(__dirname + '/public'),
+		path: path.resolve(__dirname + '/dist'),
 		filename: 'bundle.js'
 	},
 	module: {

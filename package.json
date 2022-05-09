@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "live-server --entry-file=public/index.html",
+    "start": "live-server --entry-file=src/index.html",
     "build": "webpack"
   },
   "keywords": [],
