@@ -1,5 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 // gets abosolute path of the folder.
 const __filename = fileURLToPath(import.meta.url);
@@ -10,7 +11,7 @@ export default {
 	mode: 'development',
 	entry: ['regenerator-runtime/runtime.js', './src/index.js'],
 	output: {
-		path: path.resolve(__dirname + '/dist'),
+		path: path.resolve(__dirname + '/public'),
 		filename: 'bundle.js'
 	},
 	module: {
@@ -30,9 +31,10 @@ export default {
 				test: /\.css$/i,
 				exclude: /(node_modules)/,
 				include: path.resolve(__dirname, 'src'),
-				use: ['style-loader', 'css-loader', 'postcss-loader'],
+				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
 			},
 		],
 	},
+	plugins: [new MiniCssExtractPlugin()],
 	watch: true
 };
